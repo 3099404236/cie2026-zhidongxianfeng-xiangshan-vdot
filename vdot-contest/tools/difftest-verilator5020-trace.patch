@@ -1,0 +1,21 @@
+diff --git a/src/test/csrc/verilator/waveform.h b/src/test/csrc/verilator/waveform.h
+index 9cfd2ad..f9628a1 100644
+--- a/src/test/csrc/verilator/waveform.h
++++ b/src/test/csrc/verilator/waveform.h
+@@ -23,6 +23,16 @@
+ #include <verilated_vcd_c.h>
+ #endif // ENABLE_FST
+ 
++// Verilator <= 5.020 has no common VerilatedTraceBaseC; the generated model's
++// trace() takes the concrete trace class, so bind that type instead.
++#if VERILATOR_VERSION_INTEGER <= 5020000
++#ifdef ENABLE_FST
++using VerilatedTraceBaseC = VerilatedFstC;
++#else
++using VerilatedTraceBaseC = VerilatedVcdC;
++#endif
++#endif
++
+ using TraceBindFunc = std::function<void(VerilatedTraceBaseC *, int)>;
+ 
+ class EmuWaveform {

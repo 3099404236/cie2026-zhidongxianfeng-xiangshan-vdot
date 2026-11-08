@@ -1,0 +1,27 @@
+
+================================================================
+Python golden model unit tests
+[2026-11-05 00:03:15 +0800]
+================================================================
+$ python3 -m unittest -v tests/test_vdot_model.py
+test_byte_sign_extension (tests.test_vdot_model.VDotModelTests.test_byte_sign_extension) ... ok
+test_encoding_round_trip_and_reserved_fields (tests.test_vdot_model.VDotModelTests.test_encoding_round_trip_and_reserved_fields) ... ok
+test_negative_result_is_encoded_in_low_32_bits (tests.test_vdot_model.VDotModelTests.test_negative_result_is_encoded_in_low_32_bits) ... ok
+test_positive_values (tests.test_vdot_model.VDotModelTests.test_positive_values) ... ok
+test_random_vectors_match_python_reference (tests.test_vdot_model.VDotModelTests.test_random_vectors_match_python_reference) ... ok
+test_rejects_invalid_operand_lengths_and_registers (tests.test_vdot_model.VDotModelTests.test_rejects_invalid_operand_lengths_and_registers) ... ok
+test_result_upper_96_bits_are_zero (tests.test_vdot_model.VDotModelTests.test_result_upper_96_bits_are_zero) ... ok
+test_signed_boundaries_do_not_overflow (tests.test_vdot_model.VDotModelTests.test_signed_boundaries_do_not_overflow) ... ok
+test_upper_half_of_sources_is_ignored (tests.test_vdot_model.VDotModelTests.test_upper_half_of_sources_is_ignored) ... ok
+test_vdota_accumulates_and_reads_only_vd_low_32_bits (tests.test_vdot_model.VDotModelTests.test_vdota_accumulates_and_reads_only_vd_low_32_bits) ... ok
+test_vdota_chain_equals_long_dot_product (tests.test_vdot_model.VDotModelTests.test_vdota_chain_equals_long_dot_product) ... ok
+test_vdota_encoding (tests.test_vdot_model.VDotModelTests.test_vdota_encoding) ... ok
+test_vdota_with_zero_accumulator_equals_vdot (tests.test_vdot_model.VDotModelTests.test_vdota_with_zero_accumulator_equals_vdot) ... ok
+test_vdota_wraps_like_int32 (tests.test_vdot_model.VDotModelTests.test_vdota_wraps_like_int32) ... ok
+test_zero_and_mixed_boundaries (tests.test_vdot_model.VDotModelTests.test_zero_and_mixed_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.254s
+
+OK
+[exit status: 0]

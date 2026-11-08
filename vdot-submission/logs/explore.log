@@ -1,0 +1,42 @@
+dadda targets: [63, 42, 28, 19, 13, 9, 6, 4, 3, 2]
+v3_dadda_c3: cut after 3/10 Dadda levels, 357 pipeline bits
+v3_dadda_c4: cut after 4/10 Dadda levels, 266 pipeline bits
+v3_dadda_c5: cut after 5/10 Dadda levels, 194 pipeline bits
+v3_dadda_c6: cut after 6/10 Dadda levels, 142 pipeline bits
+v3_dadda_c7: cut after 7/10 Dadda levels, 99 pipeline bits
+v3_dadda_c8: cut after 8/10 Dadda levels, 69 pipeline bits
+v3_dadda_c9: cut after 9/10 Dadda levels, 53 pipeline bits
+wrote v1_cpa, v2_csa, v3_dadda_c3, v3_dadda_c4, v3_dadda_c5, v3_dadda_c6, v3_dadda_c7, v3_dadda_c8, v3_dadda_c9
+
+== Verilator equivalence run
+v1_cpa           1131108 vectors, 0 mismatches
+v2_csa           1131108 vectors, 0 mismatches
+v3_dadda_c3      1131108 vectors, 0 mismatches
+v3_dadda_c4      1131108 vectors, 0 mismatches
+v3_dadda_c5      1131108 vectors, 0 mismatches
+v3_dadda_c6      1131108 vectors, 0 mismatches
+v3_dadda_c7      1131108 vectors, 0 mismatches
+v3_dadda_c8      1131108 vectors, 0 mismatches
+v3_dadda_c9      1131108 vectors, 0 mismatches
+
+{'name': 'v1_cpa', 'cells_g': 4267, 'cells_c': 8613, 'trans': 33518, 's1_d_g': 35, 's1_d_c': 30, 's2_d_g': 14, 's2_d_c': 11, 'cutbits': 36, 'crit_c': 30, 'crit_g': 35}
+{'name': 'v2_csa', 'cells_g': 4137, 'cells_c': 7652, 'trans': 29810, 's1_d_g': 29, 's1_d_c': 26, 's2_d_g': 19, 's2_d_c': 18, 'cutbits': 76, 'crit_c': 26, 'crit_g': 29}
+{'name': 'v3_dadda_c3', 'cells_g': 3394, 'cells_c': 6189, 'trans': 22406, 's1_d_g': 7, 's1_d_c': 8, 's2_d_g': 30, 's2_d_c': 28, 'cutbits': 357, 'crit_c': 28, 'crit_g': 30}
+{'name': 'v3_dadda_c4', 'cells_g': 3306, 'cells_c': 5947, 'trans': 21798, 's1_d_g': 10, 's1_d_c': 11, 's2_d_g': 28, 's2_d_c': 25, 'cutbits': 266, 'crit_c': 25, 'crit_g': 28}
+{'name': 'v3_dadda_c5', 'cells_g': 3230, 'cells_c': 5779, 'trans': 21418, 's1_d_g': 13, 's1_d_c': 13, 's2_d_g': 26, 's2_d_c': 23, 'cutbits': 194, 'crit_c': 23, 'crit_g': 26}
+{'name': 'v3_dadda_c6', 'cells_g': 3181, 'cells_c': 5601, 'trans': 20948, 's1_d_g': 15, 's1_d_c': 15, 's2_d_g': 23, 's2_d_c': 20, 'cutbits': 142, 'crit_c': 20, 'crit_g': 23}
+{'name': 'v3_dadda_c7', 'cells_g': 3139, 'cells_c': 5633, 'trans': 21334, 's1_d_g': 18, 's1_d_c': 18, 's2_d_g': 20, 's2_d_c': 18, 'cutbits': 99, 'crit_c': 18, 'crit_g': 20}
+{'name': 'v3_dadda_c8', 'cells_g': 3108, 'cells_c': 6112, 'trans': 23356, 's1_d_g': 21, 's1_d_c': 20, 's2_d_g': 18, 's2_d_c': 15, 'cutbits': 69, 'crit_c': 20, 'crit_g': 21}
+{'name': 'v3_dadda_c9', 'cells_g': 3094, 'cells_c': 6129, 'trans': 23508, 's1_d_g': 23, 's1_d_c': 23, 's2_d_g': 16, 's2_d_c': 13, 'cutbits': 53, 'crit_c': 23, 'crit_g': 23}
+| variant | stage-1 FFs | cells (gates) | transistors (cmos3) | S1 depth gates | S2 depth gates | S1 depth cmos3 | S2 depth cmos3 | critical stage cmos3 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| v1_cpa | 36 | 4267 | 33518 | 35 | 14 | 30 | 11 | **30** |
+| v2_csa | 76 | 4137 | 29810 | 29 | 19 | 26 | 18 | **26** |
+| v3_dadda_c3 | 357 | 3394 | 22406 | 7 | 30 | 8 | 28 | **28** |
+| v3_dadda_c4 | 266 | 3306 | 21798 | 10 | 28 | 11 | 25 | **25** |
+| v3_dadda_c5 | 194 | 3230 | 21418 | 13 | 26 | 13 | 23 | **23** |
+| v3_dadda_c6 | 142 | 3181 | 20948 | 15 | 23 | 15 | 20 | **20** |
+| v3_dadda_c7 | 99 | 3139 | 21334 | 18 | 20 | 18 | 18 | **18** |
+| v3_dadda_c8 | 69 | 3108 | 23356 | 21 | 18 | 20 | 15 | **20** |
+| v3_dadda_c9 | 53 | 3094 | 23508 | 23 | 16 | 23 | 13 | **23** |
+EXIT=0

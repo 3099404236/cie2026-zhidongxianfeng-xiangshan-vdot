@@ -1,0 +1,34 @@
+# Stage 1.1 hello xiangshan -- 2026-11-04 23:35:19 +0800 on helloworld, user root
+# host IPv4 (default route): 192.168.31.250
+
+$ cd /root/codex-work/xiangshan-vdot-2026/XiangShan
+$ ./build/emu -i /mnt/d/大四上学期/risc/香山/vdot-contest/build/hello_xiangshan.bin --diff /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot-so
+hello xiangshan, I am 曾俊翔, from 电子科技大学, in 192.168.31.250
+emu compiled at Nov  4 2026, 19:34:59
+Using simulated 1048576B flash
+Core  0's Commit SHA is: f86f50b834, dirty: 1
+Using simulated 8386560MB RAM
+The image is /mnt/d/大四上学期/risc/香山/vdot-contest/build/hello_xiangshan.bin
+The reference model is /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot-so
+The first instruction of core 0 has commited. Difftest enabled. 
+Core 0: HIT GOOD TRAP at pc = 0x80000042
+Core-0 instrCnt = 332, cycleCnt = 4843, IPC = 0.068553
+Seed=0 Guest cycle spent: 4849 (this will be different from cycleCnt if emu loads a snapshot)
+Host time spent: 21373ms
+
+$ /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot -b /mnt/d/大四上学期/risc/香山/vdot-contest/build/hello_xiangshan.bin
+hello xiangshan, I am 曾俊翔, from 电子科技大学, in 192.168.31.250
+[src/isa/riscv64/init.c:260,init_isa] NEMU will start from pc 0x10000000
+[src/monitor/image_loader.c:205,load_img] Loading image (checkpoint/bare metal app/bbl) from cmdline: /mnt/d/大四上学期/risc/香山/vdot-contest/build/hello_xiangshan.bin
+
+[src/monitor/image_loader.c:250,load_img] Read 248 bytes from file /mnt/d/大四上学期/risc/香山/vdot-contest/build/hello_xiangshan.bin to 0x0x779f7a62b000
+[src/monitor/monitor.c:63,welcome] Debug: OFF
+[src/monitor/monitor.c:68,welcome] Build time: 16:26:15, Nov  4 2026
+[/root/codex-work/vdot-build/NEMU/src/isa/riscv64/include/../instr/special.h:38,execute] nemu_trap case 0
+[src/cpu/cpu-exec.c:990,cpu_exec] nemu: HIT GOOD TRAP at pc = 0x0000000080000042
+[src/cpu/cpu-exec.c:996,cpu_exec] trap code:0
+[src/cpu/cpu-exec.c:156,monitor_statistic] host time spent = 407 us
+[src/cpu/cpu-exec.c:158,monitor_statistic] total guest instructions = 332
+[src/cpu/cpu-exec.c:164,monitor_statistic] vst count = 0, vst unit count = 0, vst unit optimized count = 0
+[src/cpu/cpu-exec.c:167,monitor_statistic] simulation frequency = 815724 instr/s
+[src/utils/state.c:30,is_exit_status_bad] NEMU exit with good state: 2, halt ret: 0

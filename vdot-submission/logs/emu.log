@@ -1,0 +1,244 @@
+XiangShan emu + DiffTest: MinimalConfig, XiangShan f86f50b + xs-vdot-rtl.patch + VDot.scala (final: fused Dadda VDot128 with the 32-bit accumulate tree; vdot.vv + vdota.vv)
+REF = vdot NEMU (riscv64-xs-ref_defconfig, nemu-vdot.patch: vdot.vv + vdota.vv)
+emu binary: emu-v4-vdota compiled at Nov  5 2026, 01:21:43
+Command per program: emu -i <program>.bin --diff riscv64-nemu-interpreter-vdot-so   (tools/run_emu_suite.sh)
+
+==================================================================== hello_xiangshan
+hello xiangshan, I am 曾俊翔, from 电子科技大学, in 192.168.31.250
+emu-v4-vdota compiled at Nov  5 2026, 01:21:43
+Using simulated 1048576B flash
+Core  0's Commit SHA is: f86f50b834, dirty: 1
+Using simulated 8386560MB RAM
+The image is /mnt/d/大四上学期/risc/香山/vdot-contest/build/hello_xiangshan.bin
+The reference model is /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot-so
+The first instruction of core 0 has commited. Difftest enabled. 
+Core 0: HIT GOOD TRAP at pc = 0x80000042
+Core-0 instrCnt = 332, cycleCnt = 4843, IPC = 0.068553
+Seed=0 Guest cycle spent: 4849 (this will be different from cycleCnt if emu loads a snapshot)
+Host time spent: 23564ms
+[host] 23.61 s, max RSS 83080 KB
+
+==================================================================== vdot_nemu_test
+emu-v4-vdota compiled at Nov  5 2026, 01:21:43
+Using simulated 1048576B flash
+Core  0's Commit SHA is: f86f50b834, dirty: 1
+Using simulated 8386560MB RAM
+The image is /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_nemu_test.bin
+The reference model is /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot-so
+The first instruction of core 0 has commited. Difftest enabled. 
+Core 0: HIT GOOD TRAP at pc = 0x80000064
+Core-0 instrCnt = 60, cycleCnt = 1550, IPC = 0.038710
+Seed=0 Guest cycle spent: 1556 (this will be different from cycleCnt if emu loads a snapshot)
+Host time spent: 10512ms
+[host] 10.56 s, max RSS 82892 KB
+
+==================================================================== vdot_full_test
+emu-v4-vdota compiled at Nov  5 2026, 01:21:43
+Using simulated 1048576B flash
+Core  0's Commit SHA is: f86f50b834, dirty: 1
+Using simulated 8386560MB RAM
+The image is /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_full_test.bin
+The reference model is /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot-so
+The first instruction of core 0 has commited. Difftest enabled. 
+Core 0: HIT GOOD TRAP at pc = 0x80000376
+Core-0 instrCnt = 1891, cycleCnt = 6501, IPC = 0.290878
+Seed=0 Guest cycle spent: 6507 (this will be different from cycleCnt if emu loads a snapshot)
+Host time spent: 31878ms
+[host] 31.92 s, max RSS 83472 KB
+
+==================================================================== vdota_test
+emu-v4-vdota compiled at Nov  5 2026, 01:21:43
+Using simulated 1048576B flash
+Core  0's Commit SHA is: f86f50b834, dirty: 1
+Using simulated 8386560MB RAM
+The image is /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdota_test.bin
+The reference model is /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot-so
+The first instruction of core 0 has commited. Difftest enabled. 
+Core 0: HIT GOOD TRAP at pc = 0x800001de
+Core-0 instrCnt = 1644, cycleCnt = 5792, IPC = 0.283840
+Seed=0 Guest cycle spent: 5798 (this will be different from cycleCnt if emu loads a snapshot)
+Host time spent: 28740ms
+[host] 28.79 s, max RSS 83416 KB
+
+==================================================================== vdot_illegal_test
+emu-v4-vdota compiled at Nov  5 2026, 01:21:43
+Using simulated 1048576B flash
+Core  0's Commit SHA is: f86f50b834, dirty: 1
+Using simulated 8386560MB RAM
+The image is /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_illegal_test.bin
+The reference model is /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot-so
+The first instruction of core 0 has commited. Difftest enabled. 
+Core 0: HIT GOOD TRAP at pc = 0x80000436
+Core-0 instrCnt = 497, cycleCnt = 4158, IPC = 0.119529
+Seed=0 Guest cycle spent: 4164 (this will be different from cycleCnt if emu loads a snapshot)
+Host time spent: 22402ms
+[host] 22.45 s, max RSS 83688 KB
+
+==================================================================== vadd_trace
+emu-v4-vdota compiled at Nov  5 2026, 01:21:43
+Using simulated 1048576B flash
+Core  0's Commit SHA is: f86f50b834, dirty: 1
+Using simulated 8386560MB RAM
+The image is /mnt/d/大四上学期/risc/香山/vdot-contest/build/vadd_trace.bin
+The reference model is /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot-so
+The first instruction of core 0 has commited. Difftest enabled. 
+Core 0: HIT GOOD TRAP at pc = 0x80000056
+Core-0 instrCnt = 28, cycleCnt = 1510, IPC = 0.018543
+Seed=0 Guest cycle spent: 1516 (this will be different from cycleCnt if emu loads a snapshot)
+Host time spent: 10364ms
+[host] 10.41 s, max RSS 81240 KB
+
+==================================================================== vdot_demo
+
+[vdot-demo] vdot.vv v10, v8, v9  (0x36942557)
+case 2.3.1 positive
+  vs1[7:0] = [1, 2, 3, 4, 5, 6, 7, 8]
+  vs2[7:0] = [8, 7, 6, 5, 4, 3, 2, 1]
+  vd       = 0x00000000_00000000_00000000_00000078
+  vd[31:0] = 120  expected 120  PASS
+case 2.3.2 negative
+  vs1[7:0] = [-1, -2, -3, -4, -5, -6, -7, -8]
+  vs2[7:0] = [1, 2, 3, 4, 5, 6, 7, 8]
+  vd       = 0x00000000_00000000_00000000_ffffff34
+  vd[31:0] = -204  expected -204  PASS
+case 2.3.2 mixed sign
+  vs1[7:0] = [-1, -2, -3, -4, 5, 6, 7, 8]
+  vs2[7:0] = [8, 7, 6, 5, -4, -3, -2, -1]
+  vd       = 0x00000000_00000000_00000000_ffffff88
+  vd[31:0] = -120  expected -120  PASS
+case 2.3.3 max (-128*-128)
+  vs1[7:0] = [-128, -128, -128, -128, -128, -128, -128, -128]
+  vs2[7:0] = [-128, -128, -128, -128, -128, -128, -128, -128]
+  vd       = 0x00000000_00000000_00000000_00020000
+  vd[31:0] = 131072  expected 131072  PASS
+case 2.3.3 min (-128*127)
+  vs1[7:0] = [-128, -128, -128, -128, -128, -128, -128, -128]
+  vs2[7:0] = [127, 127, 127, 127, 127, 127, 127, 127]
+  vd       = 0x00000000_00000000_00000000_fffe0400
+  vd[31:0] = -130048  expected -130048  PASS
+case 2.3.3 zero
+  vs1[7:0] = [0, 0, 0, 0, 0, 0, 0, 0]
+  vs2[7:0] = [-128, 127, -1, 1, 55, -55, 100, -100]
+  vd       = 0x00000000_00000000_00000000_00000000
+  vd[31:0] = 0  expected 0  PASS
+case 2.3.3 high 64b ignored
+  vs1[7:0] = [1, 2, 3, 4, 5, 6, 7, 8]
+  vs2[7:0] = [8, 7, 6, 5, 4, 3, 2, 1]
+  vd       = 0x00000000_00000000_00000000_00000078
+  vd[31:0] = 120  expected 120  PASS
+[vdot-demo] all cases PASS
+emu-v4-vdota compiled at Nov  5 2026, 01:21:43
+Using simulated 1048576B flash
+Core  0's Commit SHA is: f86f50b834, dirty: 1
+Using simulated 8386560MB RAM
+The image is /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_demo.bin
+The reference model is /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot-so
+The first instruction of core 0 has commited. Difftest enabled. 
+Core 0: HIT GOOD TRAP at pc = 0x80000042
+Core-0 instrCnt = 14852, cycleCnt = 71532, IPC = 0.207627
+Seed=0 Guest cycle spent: 71538 (this will be different from cycleCnt if emu loads a snapshot)
+Host time spent: 288555ms
+[host] 288.60 s, max RSS 86052 KB
+
+==================================================================== vdot_bench
+
+[vdot-bench] XiangShan vdot.vv vs RVV 1.0 baseline
+latency (dependent chain, 8 per iteration):
+  vdot.vv                cycles=1725  instret=339  cycles/dot=    6.73  instr/dot=    1.32
+  vwmul(m1)+vwredsum     cycles=7380  instret=1109  cycles/dot=   28.82  instr/dot=    4.33
+  vwmul(mf2)+vwredsum    cycles=5299  instret=1109  cycles/dot=   20.69  instr/dot=    4.33
+  vdota.vv (accumulate)  cycles=1724  instret=340  cycles/dot=    6.73  instr/dot=    1.32
+throughput (independent, 8 per iteration):
+  vdot.vv                cycles=328  instret=325  cycles/dot=    1.28  instr/dot=    1.26
+  vwmul(mf2)+vwredsum    cycles=818  instret=642  cycles/dot=    3.19  instr/dot=    2.50
+INT8 GEMV M=16 K=256 (4096 MACs):
+  scalar C (-O2)         cycles=14637  instret=28821  cycles/8MAC=   28.58  instr/8MAC=   56.29
+  vdot.vv                cycles=3508  instret=3820  cycles/8MAC=    6.85  instr/8MAC=    7.46
+  vwmul+vwredsum (x8)    cycles=4007  instret=3835  cycles/8MAC=    7.82  instr/8MAC=    7.49
+  RVV full-width         cycles=2400  instret=2275  cycles/8MAC=    4.68  instr/8MAC=    4.44
+  vdota.vv (8B loads)    cycles=2825  instret=3090  cycles/8MAC=    5.51  instr/8MAC=    6.03
+  vdota.vv (16B+slide)   cycles=2517  instret=2556  cycles/8MAC=    4.91  instr/8MAC=    4.99
+y[0..3] = 234736 -120548 -10096 -151423 
+[vdot-bench] all results match the scalar reference
+emu-v4-vdota compiled at Nov  5 2026, 01:21:43
+Using simulated 1048576B flash
+Core  0's Commit SHA is: f86f50b834, dirty: 1
+Using simulated 8386560MB RAM
+The image is /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_bench.bin
+The reference model is /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot-so
+The first instruction of core 0 has commited. Difftest enabled. 
+Core 0: HIT GOOD TRAP at pc = 0x80000042
+Core-0 instrCnt = 163043, cycleCnt = 200562, IPC = 0.812931
+Seed=0 Guest cycle spent: 200568 (this will be different from cycleCnt if emu loads a snapshot)
+Host time spent: 858195ms
+[host] 858.24 s, max RSS 84532 KB
+
+==================================================================== NEGATIVE CONTROL 1: REF = upstream NEMU without vdot
+(DiffTest must abort at the first vdot.vv: REF raises an illegal-instruction trap, the RTL executes vdot)
+============== Commit Group Trace (Core 0) ==============
+commit group [15]: pc 0080000082 cmtcnt 2 <--
+[20] commit pc 0000000080000086 inst cd027057 wen 0 dst 00 data 000000008000002c idx 014 <--
+mstatus different at pc = 0x0080000036, right = 0x8000040a00001e00, wrong = 0x8000000a00000600
+   mepc different at pc = 0x0080000036, right = 0x0000000080000082, wrong = 0x0000000000000000
+  mtval different at pc = 0x0080000036, right = 0x0000000036942557, wrong = 0x0000000000000000
+ mcause different at pc = 0x0080000036, right = 0x0000000000000002, wrong = 0x0000000000000000
+v10_low different at pc = 0x0080000036, right = 0xee9af3359585989c, wrong = 0x0000000000000078
+v10_high different at pc = 0x0080000036, right = 0x16845a6e9f028264, wrong = 0x0000000000000000
+     vl different at pc = 0x0080000036, right = 0x0000000000000008, wrong = 0x0000000000000004
+  vtype different at pc = 0x0080000036, right = 0x00000000000000c0, wrong = 0x00000000000000d0
+Core 0: ABORT at pc = 0x80000036
+Core-0 instrCnt = 22, cycleCnt = 1502, IPC = 0.014647
+Seed=0 Guest cycle spent: 1507 (this will be different from cycleCnt if emu loads a snapshot)
+
+==================================================================== NEGATIVE CONTROL 2: REF = NEMU with a deliberately wrong vdot (vs1 bytes unsigned)
+(the positive case agrees; DiffTest must abort at the negative case: REF 9012, RTL -204)
+============== Commit Group Trace (Core 0) ==============
+commit group [15]: pc 0080000082 cmtcnt 2 <--
+[31] commit pc 0000000080000086 inst cd027057 wen 0 dst 00 data 000000008000002c idx 023 <--
+v10_low different at pc = 0x0080000050, right = 0x0000000000002334, wrong = 0x00000000ffffff34
+Core 0: ABORT at pc = 0x80000050
+Core-0 instrCnt = 38, cycleCnt = 1521, IPC = 0.024984
+Seed=0 Guest cycle spent: 1526 (this will be different from cycleCnt if emu loads a snapshot)
+
+==================================================================== WAVEFORM: first vdot.vv in VIMacU (trace_timeline.py on vdot_nemu_test.fst)
+| stage | cycle | where |
+|---|---:|---|
+| decode out | 1460 | `inner_ctrlBlock0` |
+| rename out | 1461 | `inner_ctrlBlock0` |
+| FU in (issue) | 1497 | `Vimac` |
+| FU out (write-back) | 1499 | `Vimac` |
+| commit | 1505 | `commit` |
+
+| signal | cycle 1496 | cycle 1497 | cycle 1498 | cycle 1499 | cycle 1500 |
+|---|---:|---:|---:|---:|---:|
+| `io_in_bits_ctrlPipe_2_fuOpType` | 0x1c1 | 0x1c1 | 0x1c1 | 0x100 | 0x100 |
+| `io_in_bits_ctrl_fuOpType` | 0x1c1 | 0x100 | 0x100 | 0x100 | 0x100 |
+| `io_in_bits_data_src_0` | 0 | 0xffffffffffffffff0807060504030201 | 0xffffffffffffffff0807060504030201 | 0xffffffffffffffff0807060504030201 | 0xffffffffffffffff0807060504030201 |
+| `io_in_bits_data_src_1` | 0xf46721836936009599887a5143146eb6 | 0xffffffffffffffff0102030405060708 | 0xffffffffffffffff0102030405060708 | 0xffffffffffffffff0102030405060708 | 0xffffffffffffffff0102030405060708 |
+| `io_in_valid` | 0 | 1 | 0 | 0 | 0 |
+| `io_out_bits_res_data` | 0 | 0 | 0 | 0x78 | 0x78 |
+| `io_out_valid` | 0 | 0 | 0 | 1 | 0 |
+| `inIsVDot` | 0 | 1 | 1 | 1 | 1 |
+| `vdot.io_en` | 0 | 1 | 0 | 0 | 0 |
+| `vdot.stage1Valid` | 0 | 0 | 1 | 0 | 0 |
+| `vdot.stage2` | 0xa56cb3d1 | 0xa56cb3d1 | 0xa56cb3d1 | 0x78 | 0x78 |
+
+==================================================================== EARLIER EMU: fused Dadda VDot128 without the accumulate row, vdot.vv only (same tests except vdota_test; 13-case illegal test)
+  vdot_nemu_test: Core 0: HIT GOOD TRAP at pc = 0x80000064 | instrCnt = 60, cycleCnt = 1550, IPC = 0.038710
+  vdot_full_test: Core 0: HIT GOOD TRAP at pc = 0x80000376 | instrCnt = 1891, cycleCnt = 6501, IPC = 0.290878
+  vdot_illegal_test: Core 0: HIT GOOD TRAP at pc = 0x80000366 | instrCnt = 394, cycleCnt = 3555, IPC = 0.110830
+  vadd_trace: Core 0: HIT GOOD TRAP at pc = 0x80000056 | instrCnt = 28, cycleCnt = 1510, IPC = 0.018543
+  vdot_demo: Core 0: HIT GOOD TRAP at pc = 0x80000042 | instrCnt = 14852, cycleCnt = 71532, IPC = 0.207627
+  vdot_bench: Core 0: HIT GOOD TRAP at pc = 0x80000042 | instrCnt = 148142, cycleCnt = 172289, IPC = 0.859846
+  negative control (novdot REF): Core 0: ABORT at pc = 0x80000036 | instrCnt = 22, cycleCnt = 1502, IPC = 0.014647
+  negative control (buggy REF): Core 0: ABORT at pc = 0x80000050 | instrCnt = 38, cycleCnt = 1521, IPC = 0.024984
+
+==================================================================== EARLIER EMU: word-level CSA VDot128, vdot.vv only
+  vdot_nemu_test: Core 0: HIT GOOD TRAP at pc = 0x80000064 | instrCnt = 60, cycleCnt = 1550, IPC = 0.038710
+  vdot_full_test: Core 0: HIT GOOD TRAP at pc = 0x80000376 | instrCnt = 1891, cycleCnt = 6501, IPC = 0.290878
+  vdot_illegal_test: Core 0: HIT GOOD TRAP at pc = 0x80000366 | instrCnt = 394, cycleCnt = 3555, IPC = 0.110830
+  vadd_trace: Core 0: HIT GOOD TRAP at pc = 0x80000056 | instrCnt = 28, cycleCnt = 1510, IPC = 0.018543
+  vdot_demo: Core 0: HIT GOOD TRAP at pc = 0x80000042 | instrCnt = 14852, cycleCnt = 71532, IPC = 0.207627
+  vdot_bench: Core 0: HIT GOOD TRAP at pc = 0x80000042 | instrCnt = 148142, cycleCnt = 172289, IPC = 0.859846
+  negative control (novdot REF): Core 0: ABORT at pc = 0x80000036 | instrCnt = 22, cycleCnt = 1502, IPC = 0.014647
+  negative control (buggy REF): Core 0: ABORT at pc = 0x80000050 | instrCnt = 38, cycleCnt = 1521, IPC = 0.024984

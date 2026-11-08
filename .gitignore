@@ -1,0 +1,8 @@
+.cie2026-repo
+__pycache__/
+*.pyc
+build/
+out/
+rtl-explore/gen/
+*.o
+*.elf

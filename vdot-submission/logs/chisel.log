@@ -1,0 +1,88 @@
+== [Wed Nov  4 23:47:11 CST 2026] mill VDotSpec
+================== xiangshan.test.testOnly xiangshan.backend.fu.vector.VDotSpec ==================
+==================================================================================================
+[849/865] xiangshan.compile
+[849] [info] compiling 6 Scala sources to /root/codex-work/xiangshan-vdot-2026/XiangShan/out/xiangshan/compile.dest/classes ...
+[849] [info] done compiling
+[858/865] xiangshan.test.compile
+[858] [info] compiling 2 Scala sources to /root/codex-work/xiangshan-vdot-2026/XiangShan/out/xiangshan/test/compile.dest/classes ...
+[858] [info] done compiling
+[865/865] xiangshan.test.testOnly
+[865] VDotSpec:
+[865] VDot128
+[865] - should compute positive signed INT8 products
+[865] - should preserve a negative sum in the low signed 32-bit result
+[865] - should cover zero and signed INT8 boundaries
+[865] - should ignore the upper 64 bits of both sources
+[865/865] =============== xiangshan.test.testOnly x...ckend.fu.vector.VDotSpec =============== 62s
+[865] xiangshan.test.testOnly 32s
+==================================================================================================
+[865/865] =============== xiangshan.test.testOnly ...ckend.fu.vector.VDotSpec =============== 124s
+[865] xiangshan.test.testOnly 94s
+==================================================================================================
+[865/865] =============== xiangshan.test.testOnly ...ckend.fu.vector.VDotSpec =============== 188s
+[865] xiangshan.test.testOnly 158s
+==================================================================================================
+[865/865] =============== xiangshan.test.testOnly ...ckend.fu.vector.VDotSpec =============== 252s
+[865] xiangshan.test.testOnly 222s
+==================================================================================================
+[865] - should sweep every byte value on the lowest and the sign-critical highest lane
+[865/865] =============== xiangshan.test.testOnly ...ckend.fu.vector.VDotSpec =============== 316s
+[865] xiangshan.test.testOnly 286s
+==================================================================================================
+[865/865] =============== xiangshan.test.testOnly ...ckend.fu.vector.VDotSpec =============== 378s
+[865] xiangshan.test.testOnly 348s
+==================================================================================================
+[865] - should match a software reference for back-to-back random vectors
+[865/865] =============== xiangshan.test.testOnly ...ckend.fu.vector.VDotSpec =============== 441s
+[865] xiangshan.test.testOnly 411s
+==================================================================================================
+[865] - should be correct for every pipeline cut position of the Dadda tree
+[865/865] =============== xiangshan.test.testOnly ...ckend.fu.vector.VDotSpec =============== 505s
+[865] xiangshan.test.testOnly 475s
+==================================================================================================
+[865] - should scale to VLEN = 256 with 16 lanes (20-bit exact sum)
+[865] VDot128(accumulate = true)
+[865] - should give exactly the vdot.vv results when acc = 0
+[865/865] =============== xiangshan.test.testOnly ...ckend.fu.vector.VDotSpec =============== 568s
+[865] xiangshan.test.testOnly 538s
+==================================================================================================
+[865/865] =============== xiangshan.test.testOnly ...ckend.fu.vector.VDotSpec =============== 632s
+[865] xiangshan.test.testOnly 602s
+==================================================================================================
+[865] - should add the 32-bit accumulator with int32 wrap-around
+[865/865] =============== xiangshan.test.testOnly ...ckend.fu.vector.VDotSpec =============== 695s
+[865] xiangshan.test.testOnly 665s
+==================================================================================================
+[865] - should be correct for every pipeline cut position of the 32-bit tree
+[865] Run completed in 11 minutes, 20 seconds.
+[865] Total number of tests run: 11
+[865] Suites: completed 1, aborted 0
+[865] Tests: succeeded 11, failed 0, canceled 0, ignored 0, pending 0
+[865] All tests passed.
+[865/865] =============== xiangshan.test.testOnly ...ckend.fu.vector.VDotSpec =============== 712s
+==================================================================================================
+	Command being timed: "mill -i xiangshan.test.testOnly xiangshan.backend.fu.vector.VDotSpec"
+	User time (seconds): 948.25
+	System time (seconds): 38.60
+	Percent of CPU this job got: 138%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 11:54.72
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1268980
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2669
+	Minor (reclaiming a frame) page faults: 370320
+	Voluntary context switches: 1693891
+	Involuntary context switches: 3123
+	Swaps: 0
+	File system inputs: 696592
+	File system outputs: 164776
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+== [Wed Nov  4 23:59:06 CST 2026] exit 0

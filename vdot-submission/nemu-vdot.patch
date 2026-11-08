@@ -1,0 +1,83 @@
+diff --git a/src/isa/riscv64/include/isa-all-instr.h b/src/isa/riscv64/include/isa-all-instr.h
+index 2f18ca1..eb9d8a6 100644
+--- a/src/isa/riscv64/include/isa-all-instr.h
++++ b/src/isa/riscv64/include/isa-all-instr.h
+@@ -166,7 +166,7 @@
+   f(vasubu) f(vsmul) f(vsrl) f(vsra) \
+   f(vssra) f(vnsrl) f(vnsra) f(vnclipu) \
+   f(vnclip) f(vssrl) f(vwredsumu) f(vwredsum) \
+-  f(vredsum) \
++  f(vdot) f(vdota) f(vredsum) \
+   f(vredand) f(vredor) f(vredxor) f(vredminu) \
+   f(vredmin) f(vredmaxu) f(vredmax) f(vmvsx) \
+   f(vmvxs) f(vpopc) f(vfirst) f(vmsbf) f(vmsof) \
+diff --git a/src/isa/riscv64/instr/rvv/decode.h b/src/isa/riscv64/instr/rvv/decode.h
+index ee7618e..72a90a5 100644
+--- a/src/isa/riscv64/instr/rvv/decode.h
++++ b/src/isa/riscv64/instr/rvv/decode.h
+@@ -315,6 +315,10 @@ def_THelper(vopmvv) {
+   if (!vp_enable()) {
+     return EXEC_ID_inv;
+   }
++  // CIE 2026 custom vdot.vv: reserved funct6=001101, vm is fixed to 1.
++  def_INSTR_TAB("001101 1 ????? ????? ??? ????? ????? ??", vdot);
++  // Accumulating variant vdota.vv: reserved OPMVV funct6=001110, vm fixed to 1.
++  def_INSTR_TAB("001110 1 ????? ????? ??? ????? ????? ??", vdota);
+   def_INSTR_TAB("000000 ? ????? ????? ??? ????? ????? ??", vredsum);
+   def_INSTR_TAB("000001 ? ????? ????? ??? ????? ????? ??", vredand);
+   def_INSTR_TAB("000010 ? ????? ????? ??? ????? ????? ??", vredor);
+diff --git a/src/isa/riscv64/instr/rvv/vcompute.h b/src/isa/riscv64/instr/rvv/vcompute.h
+index 2bcb6aa..86ec301 100644
+--- a/src/isa/riscv64/instr/rvv/vcompute.h
++++ b/src/isa/riscv64/instr/rvv/vcompute.h
+@@ -257,6 +257,50 @@ def_EHelper(vwredsum) {
+ 
+ 
+ //op-m
++def_EHelper(vdot) {
++  require_vector(true);
++
++  // The custom operation is defined only for SEW=8, LMUL=1, vm=1 and
++  // vstart=0. Keep this check identical to the XiangShan RTL path.
++  if (vtype->vsew != 0 || vtype->vlmul != 0 || s->vm != 1 || vstart->val != 0) {
++    longjmp_exception(EX_II);
++  }
++
++  int32_t sum = 0;
++  for (int i = 0; i < 8; i++) {
++    const int8_t lhs = (int8_t)vreg_b(id_src->reg, i);
++    const int8_t rhs = (int8_t)vreg_b(id_src2->reg, i);
++    sum += (int32_t)lhs * (int32_t)rhs;
++  }
++
++  // Architectural result: signed low 32-bit scalar, remaining 96 bits zero.
++  vreg_l(id_dest->reg, 0) = (uint32_t)sum;
++  vreg_l(id_dest->reg, 1) = 0;
++  vstart->val = 0;
++  vp_set_dirty();
++}
++
++// vdota.vv: vd[31:0] += sum_i sext(vs1[i]) * sext(vs2[i]) (int32 wrap-around),
++// vd[127:32] = 0. Same legality rules as vdot.vv.
++def_EHelper(vdota) {
++  require_vector(true);
++  if (vtype->vsew != 0 || vtype->vlmul != 0 || s->vm != 1 || vstart->val != 0) {
++    longjmp_exception(EX_II);
++  }
++
++  uint32_t acc = (uint32_t)vreg_l(id_dest->reg, 0);   // only old vd[31:0] is read
++  for (int i = 0; i < 8; i++) {
++    const int8_t lhs = (int8_t)vreg_b(id_src->reg, i);
++    const int8_t rhs = (int8_t)vreg_b(id_src2->reg, i);
++    acc += (uint32_t)((int32_t)lhs * (int32_t)rhs);    // unsigned add: defined wrap-around
++  }
++
++  vreg_l(id_dest->reg, 0) = acc;
++  vreg_l(id_dest->reg, 1) = 0;
++  vstart->val = 0;
++  vp_set_dirty();
++}
++
+ def_EHelper(vredsum) {
+   REDUCTION(REDSUM, SIGNED);
+ }

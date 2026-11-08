@@ -1,0 +1,98 @@
+XiangShan emu build (MinimalConfig + DiffTest + FST), excerpts of the real logs
+Full logs on the build machine: /root/codex-work/vdot-build/logs/{build_emu_minimal.log, build_emu_compile.log} and XiangShan/build/time.log
+
+==== 1. Verilog generation (make sim-verilog), XiangShan/build/time.log
+[mill] Generating Verilog files...
+Wed, 04 Nov 2026 16:32:43 +0800
+	Command being timed: "mill -i -Djvm-xmx=6G -Djvm-xss=256m xiangshan.test.runMain top.XiangShanSim --target-dir build/rtl --config MinimalConfig --issue E.b --firtool-opt --repl-seq-mem --repl-seq-mem-file=SimTop.sv.conf --num-cores 1 --disable-perf --target systemverilog --firtool-opt -O=release --disable-annotation-unknown --lowering-options=explicitBitcast,disallowLocalVariables,disallowPortDeclSharing,locationInfoStyle=none --split-verilog --dump-fir --enable-difftest --full-stacktrace"
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 28:19.07
+	Maximum resident set size (kbytes): 5598520
+	Exit status: 0
+
+==== 2. Verilator (C++ generation), XiangShan/build/time.log
+[verilator] Generating C++ files...
+Wed, 04 Nov 2026 17:01:26 +0800
+	Command being timed: "verilator --exe -O3 --cc --top-module SimTop +define+VERILATOR=1 +define+PRINTF_COND=1 +define+RANDOMIZE_REG_INIT +define+RANDOMIZE_MEM_INIT +define+RANDOMIZE_GARBAGE_ASSIGN +de
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:33:27
+	Maximum resident set size (kbytes): 7788924
+	Exit status: 0
+[verilator] Generating C++ files...
+Wed, 04 Nov 2026 21:02:03 +0800
+
+==== 3. C++ compile (make -C difftest emu ... OBJCACHE=ccache -j6), build_emu_compile.log
+[Wed Nov  4 20:02:35 CST 2026] compile start
+g++: fatal error: Terminated signal terminated program cc1plus
+make[3]: *** [/usr/share/verilator/include/verilated.mk:272: VSimTop___024root__DepSet_hd5918264__168.o] Error 1
+make[2]: *** [verilator.mk:128: verilator-build-emu] Error 2
+make[1]: *** [verilator.mk:151: /root/codex-work/xiangshan-vdot-2026/XiangShan/build/verilator-compile/emu] Error 2
+make: *** [emu.mk:77: emu] Error 2
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 44:40.10
+	Maximum resident set size (kbytes): 6766292
+[Wed Nov  4 20:47:15 CST 2026] compile exit 2
+[Wed Nov  4 20:47:36 CST 2026] compile start OPT_FAST=-O1
+<command-line>: fatal error: VSimTop__pch.h.fast: No such file or directory
+make[3]: *** [/usr/share/verilator/include/verilated.mk:272: VSimTop___024root__DepSet_hd5918264__168.o] Error 1
+make[2]: *** [verilator.mk:128: verilator-build-emu] Error 2
+make[1]: *** [verilator.mk:151: /root/codex-work/xiangshan-vdot-2026/XiangShan/build/verilator-compile/emu] Error 2
+make: *** [emu.mk:77: emu] Error 2
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:15.21
+	Maximum resident set size (kbytes): 83900
+[Wed Nov  4 20:47:51 CST 2026] compile exit 2
+[Wed Nov  4 20:50:09 CST 2026] compile start OPT_FAST=-O1
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:49.90
+	Maximum resident set size (kbytes): 918712
+[Wed Nov  4 20:51:59 CST 2026] compile exit 0
+
+==== 4. Result
+-rwxr-xr-x 1 root root 180524640 Nov  4 20:52 /root/codex-work/vdot-build/emu-v2-csa
+emu-v2-csa compiled at Nov  4 2026, 19:34:59
+Usage: /root/codex-work/vdot-build/emu-v2-csa [OPTION...]
+
+
+==== 5. Rebuild with the final fused-Dadda VDot128 (spliced into build/rtl, then Verilator + C++), build_emu_v3.log
+[Wed Nov  4 21:02:01 CST 2026] splice v3 VDot128
+[Wed Nov  4 21:02:01 CST 2026] verilate
+[Wed Nov  4 22:27:34 CST 2026] compile (ccache)
+[Wed Nov  4 22:58:34 CST 2026] done: -rwxr-xr-x 1 root root 181262624 Nov  4 22:58 /root/codex-work/vdot-build/emu-v3-dadda
+  (30 generated files larger than 5 MB compiled with OPT_FAST=-O1 instead of -O3)
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:25:31
+	Maximum resident set size (kbytes): 7820456
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 30:58.51
+	Maximum resident set size (kbytes): 1252508
+  Hits:              193 / 1568 (12.31%)
+  Misses:           1375 / 1568 (87.69%)
+  build/rtl/VDot128.sv is the fused-Dadda version emitted by VDotVerilog (async reset)
+
+==== 6. Full rebuild with vdota.vv (decode tables changed, so sim-verilog again), vdot-build/build_emu_v4.sh, build_emu_v4.log
+[Thu Nov  5 00:02:43 CST 2026] sim-verilog   (CONFIG=MinimalConfig NUM_CORES=1 WITH_CHISELDB=0 WITH_CONSTANTIN=0 DISABLE_PERF=1 JVM_XMX=6G)
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 14:32.32
+	Maximum resident set size (kbytes): 6619228
+  grep -c io_acc build/rtl/VDot128.sv = 50   (the instantiated VDot128 is the accumulating 32-bit tree)
+[Thu Nov  5 00:17:15 CST 2026] verilate      (make -C difftest emu-mk ... EMU_TRACE=fst)
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:04:13
+	Maximum resident set size (kbytes): 7846152
+[Thu Nov  5 01:21:30 CST 2026] compile (ccache), 30 files at -O1
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 29:27.35
+	Maximum resident set size (kbytes): 1325120
+[Thu Nov  5 01:50:58 CST 2026] done: -rwxr-xr-x 1 root root 181377264 Nov  5 01:50 /root/codex-work/vdot-build/emu-v4-vdota
+
+==== 7. DefaultConfig (XiangShan Makefile default) with the final RTL, vdot-build/build_emu_default.sh + compile_emu_default.sh, build_emu_default.log
+[Thu Nov  5 02:10:17 CST 2026] sim-verilog CONFIG=DefaultConfig   (NUM_CORES=1 WITH_CHISELDB=0 WITH_CONSTANTIN=0 DISABLE_PERF=1 JVM_XMX=9G, cgroup cap 10.5 GB)
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 24:24.79
+	Maximum resident set size (kbytes): 9773284
+  VDot128 io_acc refs: 50; rtl size: 1.6G   (MinimalConfig: 1.0G)
+[Thu Nov  5 02:34:42 CST 2026] verilate
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 4:37:58
+	Maximum resident set size (kbytes): 10966508
+[Thu Nov  5 07:12:43 CST 2026] compile (ccache), 43 files at -O1
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 14:54.47
+	Exit status: 2
+  cc1plus: error: one or more PCH files were found, but they were invalid
+  <command-line>: fatal error: VSimTop__pch.h.fast: No such file or directory
+  (the -O1 files cannot use the -O3 precompiled header and GCC falls back to a header Verilator does not create;
+   fix: copy VSimTop__pch.h to VSimTop__pch.h.fast with an old timestamp, now part of build_emu_default.sh)
+[Thu Nov  5 07:29:16 CST 2026] compile resumed after adding the VSimTop__pch.h.fast fallback header
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 43:32.00
+	Maximum resident set size (kbytes): 1882780
+	Exit status: 0
+[Thu Nov  5 08:12:49 CST 2026] done: -rwxr-xr-x 1 root root 254404720 Nov  5 08:12 /root/codex-work/vdot-build/emu-default-vdota

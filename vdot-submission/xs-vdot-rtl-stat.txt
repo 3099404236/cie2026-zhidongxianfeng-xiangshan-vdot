@@ -1,0 +1,13 @@
+XiangShan base commit: f86f50b834c26597426b5ede7c25afaff84d11ce
+ .../xiangshan/backend/decode/DecodeUnit.scala      |  2 ++
+ .../xiangshan/backend/decode/Instructions.scala    | 12 ++++++++++
+ .../xiangshan/backend/decode/VecDecoder.scala      |  7 ++++++
+ .../xiangshan/backend/decode/VecExceptionGen.scala | 13 ++++++++--
+ .../xiangshan/backend/fu/wrapper/VIMacU.scala      | 28 +++++++++++++++++-----
+ 5 files changed, 54 insertions(+), 8 deletions(-)
+new files:
+  173 src/main/scala/xiangshan/backend/fu/vector/VDot.scala
+  162 src/test/scala/xiangshan/backend/fu/vector/VDotSpec.scala
+   30 src/test/scala/xiangshan/backend/fu/vector/VDotVerilog.scala
+  365 total
+NEMU base commit: a48a11f208ff81ad765591d83271d1b339fb3861

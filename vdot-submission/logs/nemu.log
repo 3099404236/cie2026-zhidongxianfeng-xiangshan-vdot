@@ -1,0 +1,261 @@
+
+================================================================
+Bare-metal programs on the vdot-enabled NEMU interpreter
+[2026-11-05 00:03:15 +0800]
+================================================================
+$ make all
+riscv64-linux-gnu-gcc -march=rv64gcv -mabi=lp64d -mcmodel=medany -O2 -ffreestanding -fno-builtin -fno-tree-vectorize -fno-tree-slp-vectorize -nostdlib -nostartfiles -static -no-pie -fno-pic -Wl,--build-id=none -Wall -Wextra -T bench/link.ld -DHELLO_NAME='"曾俊翔"' -DHELLO_SCHOOL='"电子科技大学"' -DHELLO_IP='"192.168.31.250"' \
+  bench/crt0.S bench/hello_xiangshan.c -o ../build/hello_xiangshan.elf
+riscv64-linux-gnu-objcopy -O binary ../build/hello_xiangshan.elf ../build/hello_xiangshan.bin
+riscv64-linux-gnu-objdump -d ../build/hello_xiangshan.elf > ../build/hello_xiangshan.dis
+[exit status: 0]
+--- hello_xiangshan
+$ /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot -b /mnt/d/大四上学期/risc/香山/vdot-contest/build/hello_xiangshan.bin
+hello xiangshan, I am 曾俊翔, from 电子科技大学, in 192.168.31.250
+[src/isa/riscv64/init.c:260,init_isa] NEMU will start from pc 0x10000000
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uart16550' at [0x00000000000003f8, 0x0000000000000417]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uartlite' at [0x00000000000003f8, 0x0000000000000404]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'screen' at [0x0000000000000100, 0x0000000000000107]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'keyboard' at [0x0000000000000060, 0x0000000000000063]
+[src/device/sdcard.c:137,init_sdcard] Can not find sdcard image: 
+[src/monitor/image_loader.c:205,load_img] Loading image (checkpoint/bare metal app/bbl) from cmdline: /mnt/d/大四上学期/risc/香山/vdot-contest/build/hello_xiangshan.bin
+
+[src/monitor/image_loader.c:250,load_img] Read 248 bytes from file /mnt/d/大四上学期/risc/香山/vdot-contest/build/hello_xiangshan.bin to 0x0x7792901b3000
+[src/monitor/monitor.c:63,welcome] Debug: OFF
+[src/monitor/monitor.c:68,welcome] Build time: 23:39:23, Nov  4 2026
+Welcome to riscv64-NEMU!
+For help, type "help"
+[/root/codex-work/vdot-build/NEMU/src/isa/riscv64/include/../instr/special.h:38,execute] nemu_trap case 0
+[src/cpu/cpu-exec.c:990,cpu_exec] nemu: HIT GOOD TRAP at pc = 0x0000000080000042
+[src/cpu/cpu-exec.c:996,cpu_exec] trap code:0
+[src/cpu/cpu-exec.c:156,monitor_statistic] host time spent = 660 us
+[src/cpu/cpu-exec.c:158,monitor_statistic] total guest instructions = 332
+[src/cpu/cpu-exec.c:164,monitor_statistic] vst count = 0, vst unit count = 0, vst unit optimized count = 0
+[src/cpu/cpu-exec.c:167,monitor_statistic] simulation frequency = 503030 instr/s
+[src/utils/state.c:30,is_exit_status_bad] NEMU exit with good state: 2, halt ret: 0
+[exit status: 0]
+--- vdot_nemu_test
+$ /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot -b /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_nemu_test.bin
+[src/isa/riscv64/init.c:260,init_isa] NEMU will start from pc 0x10000000
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uart16550' at [0x00000000000003f8, 0x0000000000000417]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uartlite' at [0x00000000000003f8, 0x0000000000000404]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'screen' at [0x0000000000000100, 0x0000000000000107]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'keyboard' at [0x0000000000000060, 0x0000000000000063]
+[src/device/sdcard.c:137,init_sdcard] Can not find sdcard image: 
+[src/monitor/image_loader.c:205,load_img] Loading image (checkpoint/bare metal app/bbl) from cmdline: /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_nemu_test.bin
+
+[src/monitor/image_loader.c:250,load_img] Read 256 bytes from file /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_nemu_test.bin to 0x0x7788212ea000
+[src/monitor/monitor.c:63,welcome] Debug: OFF
+[src/monitor/monitor.c:68,welcome] Build time: 23:39:23, Nov  4 2026
+Welcome to riscv64-NEMU!
+For help, type "help"
+[/root/codex-work/vdot-build/NEMU/src/isa/riscv64/include/../instr/special.h:38,execute] nemu_trap case 0
+[src/cpu/cpu-exec.c:990,cpu_exec] nemu: HIT GOOD TRAP at pc = 0x0000000080000064
+[src/cpu/cpu-exec.c:996,cpu_exec] trap code:0
+[src/cpu/cpu-exec.c:156,monitor_statistic] host time spent = 502 us
+[src/cpu/cpu-exec.c:158,monitor_statistic] total guest instructions = 60
+[src/cpu/cpu-exec.c:164,monitor_statistic] vst count = 0, vst unit count = 0, vst unit optimized count = 0
+[src/cpu/cpu-exec.c:167,monitor_statistic] simulation frequency = 119521 instr/s
+[src/utils/state.c:30,is_exit_status_bad] NEMU exit with good state: 2, halt ret: 0
+[exit status: 0]
+--- vdot_full_test
+$ /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot -b /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_full_test.bin
+[src/isa/riscv64/init.c:260,init_isa] NEMU will start from pc 0x10000000
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uart16550' at [0x00000000000003f8, 0x0000000000000417]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uartlite' at [0x00000000000003f8, 0x0000000000000404]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'screen' at [0x0000000000000100, 0x0000000000000107]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'keyboard' at [0x0000000000000060, 0x0000000000000063]
+[src/device/sdcard.c:137,init_sdcard] Can not find sdcard image: 
+[src/monitor/image_loader.c:205,load_img] Loading image (checkpoint/bare metal app/bbl) from cmdline: /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_full_test.bin
+
+[src/monitor/image_loader.c:250,load_img] Read 4064 bytes from file /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_full_test.bin to 0x0x779f66741000
+[src/monitor/monitor.c:63,welcome] Debug: OFF
+[src/monitor/monitor.c:68,welcome] Build time: 23:39:23, Nov  4 2026
+Welcome to riscv64-NEMU!
+For help, type "help"
+[/root/codex-work/vdot-build/NEMU/src/isa/riscv64/include/../instr/special.h:38,execute] nemu_trap case 0
+[src/cpu/cpu-exec.c:990,cpu_exec] nemu: HIT GOOD TRAP at pc = 0x0000000080000376
+[src/cpu/cpu-exec.c:996,cpu_exec] trap code:0
+[src/cpu/cpu-exec.c:156,monitor_statistic] host time spent = 587 us
+[src/cpu/cpu-exec.c:158,monitor_statistic] total guest instructions = 1891
+[src/cpu/cpu-exec.c:164,monitor_statistic] vst count = 71, vst unit count = 71, vst unit optimized count = 0
+[src/cpu/cpu-exec.c:167,monitor_statistic] simulation frequency = 3221465 instr/s
+[src/utils/state.c:30,is_exit_status_bad] NEMU exit with good state: 2, halt ret: 0
+[exit status: 0]
+--- vdota_test
+$ /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot -b /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdota_test.bin
+[src/isa/riscv64/init.c:260,init_isa] NEMU will start from pc 0x10000000
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uart16550' at [0x00000000000003f8, 0x0000000000000417]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uartlite' at [0x00000000000003f8, 0x0000000000000404]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'screen' at [0x0000000000000100, 0x0000000000000107]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'keyboard' at [0x0000000000000060, 0x0000000000000063]
+[src/device/sdcard.c:137,init_sdcard] Can not find sdcard image: 
+[src/monitor/image_loader.c:205,load_img] Loading image (checkpoint/bare metal app/bbl) from cmdline: /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdota_test.bin
+
+[src/monitor/image_loader.c:250,load_img] Read 5216 bytes from file /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdota_test.bin to 0x0x77d81ff61000
+[src/monitor/monitor.c:63,welcome] Debug: OFF
+[src/monitor/monitor.c:68,welcome] Build time: 23:39:23, Nov  4 2026
+Welcome to riscv64-NEMU!
+For help, type "help"
+[/root/codex-work/vdot-build/NEMU/src/isa/riscv64/include/../instr/special.h:38,execute] nemu_trap case 0
+[src/cpu/cpu-exec.c:990,cpu_exec] nemu: HIT GOOD TRAP at pc = 0x00000000800001de
+[src/cpu/cpu-exec.c:996,cpu_exec] trap code:0
+[src/cpu/cpu-exec.c:156,monitor_statistic] host time spent = 589 us
+[src/cpu/cpu-exec.c:158,monitor_statistic] total guest instructions = 1644
+[src/cpu/cpu-exec.c:164,monitor_statistic] vst count = 43, vst unit count = 43, vst unit optimized count = 0
+[src/cpu/cpu-exec.c:167,monitor_statistic] simulation frequency = 2791171 instr/s
+[src/utils/state.c:30,is_exit_status_bad] NEMU exit with good state: 2, halt ret: 0
+[exit status: 0]
+--- vdot_illegal_test
+$ /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot -b /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_illegal_test.bin
+[src/isa/riscv64/init.c:260,init_isa] NEMU will start from pc 0x10000000
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uart16550' at [0x00000000000003f8, 0x0000000000000417]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uartlite' at [0x00000000000003f8, 0x0000000000000404]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'screen' at [0x0000000000000100, 0x0000000000000107]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'keyboard' at [0x0000000000000060, 0x0000000000000063]
+[src/device/sdcard.c:137,init_sdcard] Can not find sdcard image: 
+[src/monitor/image_loader.c:205,load_img] Loading image (checkpoint/bare metal app/bbl) from cmdline: /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_illegal_test.bin
+
+[src/monitor/image_loader.c:250,load_img] Read 1184 bytes from file /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_illegal_test.bin to 0x0x7733c8ca4000
+[src/monitor/monitor.c:63,welcome] Debug: OFF
+[src/monitor/monitor.c:68,welcome] Build time: 23:39:23, Nov  4 2026
+Welcome to riscv64-NEMU!
+For help, type "help"
+[/root/codex-work/vdot-build/NEMU/src/isa/riscv64/include/../instr/special.h:38,execute] nemu_trap case 0
+[src/cpu/cpu-exec.c:990,cpu_exec] nemu: HIT GOOD TRAP at pc = 0x0000000080000436
+[src/cpu/cpu-exec.c:996,cpu_exec] trap code:0
+[src/cpu/cpu-exec.c:156,monitor_statistic] host time spent = 671 us
+[src/cpu/cpu-exec.c:158,monitor_statistic] total guest instructions = 497
+[src/cpu/cpu-exec.c:164,monitor_statistic] vst count = 17, vst unit count = 17, vst unit optimized count = 0
+[src/cpu/cpu-exec.c:167,monitor_statistic] simulation frequency = 740685 instr/s
+[src/utils/state.c:30,is_exit_status_bad] NEMU exit with good state: 2, halt ret: 0
+[exit status: 0]
+--- vadd_trace
+$ /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot -b /mnt/d/大四上学期/risc/香山/vdot-contest/build/vadd_trace.bin
+[src/isa/riscv64/init.c:260,init_isa] NEMU will start from pc 0x10000000
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uart16550' at [0x00000000000003f8, 0x0000000000000417]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uartlite' at [0x00000000000003f8, 0x0000000000000404]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'screen' at [0x0000000000000100, 0x0000000000000107]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'keyboard' at [0x0000000000000060, 0x0000000000000063]
+[src/device/sdcard.c:137,init_sdcard] Can not find sdcard image: 
+[src/monitor/image_loader.c:205,load_img] Loading image (checkpoint/bare metal app/bbl) from cmdline: /mnt/d/大四上学期/risc/香山/vdot-contest/build/vadd_trace.bin
+
+[src/monitor/image_loader.c:250,load_img] Read 144 bytes from file /mnt/d/大四上学期/risc/香山/vdot-contest/build/vadd_trace.bin to 0x0x77f5368d2000
+[src/monitor/monitor.c:63,welcome] Debug: OFF
+[src/monitor/monitor.c:68,welcome] Build time: 23:39:23, Nov  4 2026
+Welcome to riscv64-NEMU!
+For help, type "help"
+[/root/codex-work/vdot-build/NEMU/src/isa/riscv64/include/../instr/special.h:38,execute] nemu_trap case 0
+[src/cpu/cpu-exec.c:990,cpu_exec] nemu: HIT GOOD TRAP at pc = 0x0000000080000056
+[src/cpu/cpu-exec.c:996,cpu_exec] trap code:0
+[src/cpu/cpu-exec.c:156,monitor_statistic] host time spent = 388 us
+[src/cpu/cpu-exec.c:158,monitor_statistic] total guest instructions = 28
+[src/cpu/cpu-exec.c:164,monitor_statistic] vst count = 1, vst unit count = 1, vst unit optimized count = 0
+[src/cpu/cpu-exec.c:167,monitor_statistic] simulation frequency = 72164 instr/s
+[src/utils/state.c:30,is_exit_status_bad] NEMU exit with good state: 2, halt ret: 0
+[exit status: 0]
+--- vdot_demo
+$ /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot -b /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_demo.bin
+
+[vdot-demo] vdot.vv v10, v8, v9  (0x36942557)
+case 2.3.1 positive
+  vs1[7:0] = [1, 2, 3, 4, 5, 6, 7, 8]
+  vs2[7:0] = [8, 7, 6, 5, 4, 3, 2, 1]
+  vd       = 0x00000000_00000000_00000000_00000078
+  vd[31:0] = 120  expected 120  PASS
+case 2.3.2 negative
+  vs1[7:0] = [-1, -2, -3, -4, -5, -6, -7, -8]
+  vs2[7:0] = [1, 2, 3, 4, 5, 6, 7, 8]
+  vd       = 0x00000000_00000000_00000000_ffffff34
+  vd[31:0] = -204  expected -204  PASS
+case 2.3.2 mixed sign
+  vs1[7:0] = [-1, -2, -3, -4, 5, 6, 7, 8]
+  vs2[7:0] = [8, 7, 6, 5, -4, -3, -2, -1]
+  vd       = 0x00000000_00000000_00000000_ffffff88
+  vd[31:0] = -120  expected -120  PASS
+case 2.3.3 max (-128*-128)
+  vs1[7:0] = [-128, -128, -128, -128, -128, -128, -128, -128]
+  vs2[7:0] = [-128, -128, -128, -128, -128, -128, -128, -128]
+  vd       = 0x00000000_00000000_00000000_00020000
+  vd[31:0] = 131072  expected 131072  PASS
+case 2.3.3 min (-128*127)
+  vs1[7:0] = [-128, -128, -128, -128, -128, -128, -128, -128]
+  vs2[7:0] = [127, 127, 127, 127, 127, 127, 127, 127]
+  vd       = 0x00000000_00000000_00000000_fffe0400
+  vd[31:0] = -130048  expected -130048  PASS
+case 2.3.3 zero
+  vs1[7:0] = [0, 0, 0, 0, 0, 0, 0, 0]
+  vs2[7:0] = [-128, 127, -1, 1, 55, -55, 100, -100]
+  vd       = 0x00000000_00000000_00000000_00000000
+  vd[31:0] = 0  expected 0  PASS
+case 2.3.3 high 64b ignored
+  vs1[7:0] = [1, 2, 3, 4, 5, 6, 7, 8]
+  vs2[7:0] = [8, 7, 6, 5, 4, 3, 2, 1]
+  vd       = 0x00000000_00000000_00000000_00000078
+  vd[31:0] = 120  expected 120  PASS
+[vdot-demo] all cases PASS
+[src/isa/riscv64/init.c:260,init_isa] NEMU will start from pc 0x10000000
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uart16550' at [0x00000000000003f8, 0x0000000000000417]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uartlite' at [0x00000000000003f8, 0x0000000000000404]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'screen' at [0x0000000000000100, 0x0000000000000107]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'keyboard' at [0x0000000000000060, 0x0000000000000063]
+[src/device/sdcard.c:137,init_sdcard] Can not find sdcard image: 
+[src/monitor/image_loader.c:205,load_img] Loading image (checkpoint/bare metal app/bbl) from cmdline: /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_demo.bin
+
+[src/monitor/image_loader.c:250,load_img] Read 1812 bytes from file /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_demo.bin to 0x0x77c87c9af000
+[src/monitor/monitor.c:63,welcome] Debug: OFF
+[src/monitor/monitor.c:68,welcome] Build time: 23:39:23, Nov  4 2026
+Welcome to riscv64-NEMU!
+For help, type "help"
+[/root/codex-work/vdot-build/NEMU/src/isa/riscv64/include/../instr/special.h:38,execute] nemu_trap case 0
+[src/cpu/cpu-exec.c:990,cpu_exec] nemu: HIT GOOD TRAP at pc = 0x0000000080000042
+[src/cpu/cpu-exec.c:996,cpu_exec] trap code:0
+[src/cpu/cpu-exec.c:156,monitor_statistic] host time spent = 1836 us
+[src/cpu/cpu-exec.c:158,monitor_statistic] total guest instructions = 14852
+[src/cpu/cpu-exec.c:164,monitor_statistic] vst count = 7, vst unit count = 7, vst unit optimized count = 0
+[src/cpu/cpu-exec.c:167,monitor_statistic] simulation frequency = 8089324 instr/s
+[src/utils/state.c:30,is_exit_status_bad] NEMU exit with good state: 2, halt ret: 0
+[exit status: 0]
+--- vdot_bench
+$ /root/codex-work/vdot-build/riscv64-nemu-interpreter-vdot -b /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_bench.bin
+
+[vdot-bench] XiangShan vdot.vv vs RVV 1.0 baseline
+latency (dependent chain, 8 per iteration):
+  vdot.vv                cycles=322  instret=322  cycles/dot=    1.25  instr/dot=    1.25
+  vwmul(m1)+vwredsum     cycles=1090  instret=1090  cycles/dot=    4.25  instr/dot=    4.25
+  vwmul(mf2)+vwredsum    cycles=1090  instret=1090  cycles/dot=    4.25  instr/dot=    4.25
+  vdota.vv (accumulate)  cycles=322  instret=322  cycles/dot=    1.25  instr/dot=    1.25
+throughput (independent, 8 per iteration):
+  vdot.vv                cycles=322  instret=322  cycles/dot=    1.25  instr/dot=    1.25
+  vwmul(mf2)+vwredsum    cycles=642  instret=642  cycles/dot=    2.50  instr/dot=    2.50
+INT8 GEMV M=16 K=256 (4096 MACs):
+  scalar C (-O2)         cycles=28807  instret=28807  cycles/8MAC=   56.26  instr/8MAC=   56.26
+  vdot.vv                cycles=3827  instret=3827  cycles/8MAC=    7.47  instr/8MAC=    7.47
+  vwmul+vwredsum (x8)    cycles=3843  instret=3843  cycles/8MAC=    7.50  instr/8MAC=    7.50
+  RVV full-width         cycles=2275  instret=2275  cycles/8MAC=    4.44  instr/8MAC=    4.44
+  vdota.vv (8B loads)    cycles=3091  instret=3091  cycles/8MAC=    6.03  instr/8MAC=    6.03
+  vdota.vv (16B+slide)   cycles=2563  instret=2563  cycles/8MAC=    5.00  instr/8MAC=    5.00
+y[0..3] = 234736 -120548 -10096 -151423 
+[vdot-bench] all results match the scalar reference
+[src/isa/riscv64/init.c:260,init_isa] NEMU will start from pc 0x10000000
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uart16550' at [0x00000000000003f8, 0x0000000000000417]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'uartlite' at [0x00000000000003f8, 0x0000000000000404]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'screen' at [0x0000000000000100, 0x0000000000000107]
+[src/device/io/port-io.c:35,add_pio_map_with_diff] Add port-io map 'keyboard' at [0x0000000000000060, 0x0000000000000063]
+[src/device/sdcard.c:137,init_sdcard] Can not find sdcard image: 
+[src/monitor/image_loader.c:205,load_img] Loading image (checkpoint/bare metal app/bbl) from cmdline: /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_bench.bin
+
+[src/monitor/image_loader.c:250,load_img] Read 5908 bytes from file /mnt/d/大四上学期/risc/香山/vdot-contest/build/vdot_bench.bin to 0x0x7767f4dcf000
+[src/monitor/monitor.c:63,welcome] Debug: OFF
+[src/monitor/monitor.c:68,welcome] Build time: 23:39:23, Nov  4 2026
+Welcome to riscv64-NEMU!
+For help, type "help"
+[/root/codex-work/vdot-build/NEMU/src/isa/riscv64/include/../instr/special.h:38,execute] nemu_trap case 0
+[src/cpu/cpu-exec.c:990,cpu_exec] nemu: HIT GOOD TRAP at pc = 0x0000000080000042
+[src/cpu/cpu-exec.c:996,cpu_exec] trap code:0
+[src/cpu/cpu-exec.c:156,monitor_statistic] host time spent = 6573 us
+[src/cpu/cpu-exec.c:158,monitor_statistic] total guest instructions = 162999
+[src/cpu/cpu-exec.c:164,monitor_statistic] vst count = 12, vst unit count = 12, vst unit optimized count = 0
+[src/cpu/cpu-exec.c:167,monitor_statistic] simulation frequency = 24798265 instr/s
+[src/utils/state.c:30,is_exit_status_bad] NEMU exit with good state: 2, halt ret: 0
+[exit status: 0]
